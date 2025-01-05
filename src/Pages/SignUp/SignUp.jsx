@@ -1,4 +1,17 @@
+import { useForm } from "react-hook-form";
+
 const SignUp = () => {
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm();
+
+  const onSubmit = (data) => {
+    console.log(data);
+  };
+
   return (
     <div className="hero bg-base-200 min-h-screen">
       <div className="hero-content flex-col lg:flex-row-reverse">
@@ -11,7 +24,7 @@ const SignUp = () => {
           </p>
         </div>
         <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
-          <form className="card-body">
+          <form className="card-body" onSubmit={handleSubmit(onSubmit)}>
             <div className="form-control">
               <label className="label">
                 <span className="label-text">Name</span>
@@ -21,8 +34,11 @@ const SignUp = () => {
                 name="name"
                 placeholder="name"
                 className="input input-bordered"
-                required
+                {...register("name", { required: true })}
               />
+              {errors.name && (
+                <span className="text-red-400">Name field is required</span>
+              )}
             </div>
             <div className="form-control">
               <label className="label">
@@ -33,8 +49,13 @@ const SignUp = () => {
                 name="email"
                 placeholder="email"
                 className="input input-bordered"
-                required
+                {...register("email", { required: true })}
               />
+              {errors.email && (
+                <span className="text-red-400 my-1">
+                  Email field is required
+                </span>
+              )}
             </div>
             <div className="form-control">
               <label className="label">
@@ -45,8 +66,15 @@ const SignUp = () => {
                 name="password"
                 placeholder="password"
                 className="input input-bordered"
-                required
+                {...register("password", {
+                  required: true,
+                  maxLength: 20,
+                  minLength: 6,
+                })}
               />
+              {errors.password && (
+                <span className="text-red-400">Password field is required</span>
+              )}
               <label className="label">
                 <a href="#" className="label-text-alt link link-hover">
                   Forgot password?
