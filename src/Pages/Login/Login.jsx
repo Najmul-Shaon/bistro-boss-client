@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import {
   loadCaptchaEnginge,
   LoadCanvasTemplate,
@@ -7,17 +7,19 @@ import {
 import { AuthContext } from "../../Provider/AuthProvider";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
+import Swal from "sweetalert2";
 const Login = () => {
   const [disabled, setDisabled] = useState(true);
 
   const { signIn } = useContext(AuthContext);
 
-  const captchaRef = useRef(null);
+  //   const captchaRef = useRef(null);
   useEffect(() => {
     loadCaptchaEnginge(6);
   }, []);
 
   const handleLoginFormSubmit = (e) => {
+    // e.preventDefault();
     e.preventDefault();
     const form = new FormData(e.target);
     const email = form.get("email");
@@ -27,11 +29,18 @@ const Login = () => {
     signIn(email, password).then((result) => {
       const user = result.user;
       console.log(user);
+      Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: "User Login Successfull!",
+        showConfirmButton: false,
+        timer: 1500,
+      });
     });
   };
 
-  const handleValidateCaptcha = () => {
-    const userCapthcaValue = captchaRef.current.value;
+  const handleValidateCaptcha = (e) => {
+    const userCapthcaValue = e.target.value;
     if (validateCaptcha(userCapthcaValue)) {
       setDisabled(false);
     } else {
@@ -90,19 +99,19 @@ const Login = () => {
                   <LoadCanvasTemplate></LoadCanvasTemplate>
                 </label>
                 <input
-                  ref={captchaRef}
+                  onBlur={handleValidateCaptcha}
                   type="text"
                   name="captcha"
                   placeholder="Type the captcha"
                   className="input input-bordered"
                   required
                 />
-                <button
+                {/* <button
                   onClick={handleValidateCaptcha}
                   className="btn btn-outline btn-xs my-2"
                 >
                   Validate
-                </button>
+                </button> */}
               </div>
               <div className="form-control mt-6">
                 <input
