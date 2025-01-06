@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { NavLink } from "react-router-dom";
 import { AuthContext } from "../../../Provider/AuthProvider";
+import { IoCartOutline } from "react-icons/io5";
 
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
@@ -28,6 +29,12 @@ const Navbar = () => {
       </li>
       <li>
         <NavLink to="/secret">Secret</NavLink>
+      </li>
+      <li>
+        <NavLink>
+          <IoCartOutline></IoCartOutline>
+          <div className="badge badge-secondary mx-2">+0</div>
+        </NavLink>
       </li>
 
       {user ? (
