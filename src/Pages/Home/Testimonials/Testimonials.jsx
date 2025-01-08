@@ -18,7 +18,6 @@ const Testimonials = () => {
 
   useEffect(() => {
     axios.get("http://localhost:5000/reviews").then((res) => {
-      console.log(res.data);
       setReviews(res.data);
     });
   }, []);

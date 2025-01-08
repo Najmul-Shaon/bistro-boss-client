@@ -21,18 +21,18 @@ const SignUp = () => {
   } = useForm();
 
   const onSubmit = (data) => {
-    console.log(data);
     createUser(data.email, data.password).then((result) => {
       const loggedUser = result.user;
-      console.log(loggedUser);
       updateUserProfile(data?.name, data?.photoUrl)
         .then(() => {
-          console.log("User updater");
           // create user entry info into the db
-          const userInfo = { name: data.name, email: data.email, phoroUrl:data };
+          const userInfo = {
+            name: data.name,
+            email: data.email,
+            phoroUrl: data,
+          };
           axiosPublic.post("/users", userInfo).then((res) => {
             if (res.data.insertedId) {
-              console.log("user added into the db");
               Swal.fire({
                 position: "top-end",
                 icon: "success",
@@ -44,7 +44,9 @@ const SignUp = () => {
             }
           });
         })
-        .catch((e) => console.log(e.message));
+        .catch((e) => {
+          
+        });
       reset();
     });
   };
@@ -168,9 +170,13 @@ const SignUp = () => {
               </div>
             </form>
             <div>
-              <p>
+              <p className="px-6">
                 Already have an account? <Link to="/login">Login</Link>
               </p>
+            </div>
+            <div className="divider"></div>
+            <div className="flex items-center justify-center my-8">
+              <SocialLogin></SocialLogin>
             </div>
           </div>
         </div>

@@ -6,8 +6,6 @@ import { FaCartShopping } from "react-icons/fa6";
 
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
-  console.log(user?.email);
-  console.log(logOut);
 
   const [cart] = useCart();
 
@@ -15,7 +13,6 @@ const Navbar = () => {
     logOut()
       .then(() => {})
       .catch((err) => {
-        console.log(err.message);
       });
   };
 

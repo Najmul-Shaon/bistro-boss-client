@@ -14,9 +14,7 @@ const FoodCard = ({ item }) => {
   const [, refetch] = useCart();
 
   const handleFoodCardClick = (item) => {
-    console.log(item, user?.email);
     if (user && user?.email) {
-      console.log("yes");
       const cartItem = {
         menuId: _id,
         email: user?.email,
@@ -25,7 +23,6 @@ const FoodCard = ({ item }) => {
         price,
       };
       axiosSecure.post("/carts", cartItem).then((res) => {
-        console.log(res.data);
         if (res.data) {
           toast.success(`${name} Added to cart.`);
         }
@@ -33,7 +30,6 @@ const FoodCard = ({ item }) => {
         refetch();
       });
     } else {
-      console.log("no");
       toast.error("Please login first.");
       navigate("/login", { state: { from: location } });
     }

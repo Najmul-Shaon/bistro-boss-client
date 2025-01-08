@@ -22,7 +22,6 @@ const Cart = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         axiosSecure.delete(`/carts/${id}`).then((res) => {
-          console.log(res.data);
           if (res.data.deletedCount) {
             Swal.fire({
               title: "Deleted!",
