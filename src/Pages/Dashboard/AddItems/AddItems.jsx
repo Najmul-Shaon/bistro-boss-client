@@ -13,7 +13,6 @@ const AddItems = () => {
 
   const { register, handleSubmit, reset } = useForm();
   const onSubmit = async (data) => {
-    console.log(data);
     //   upload to the img bb server then get a url
     const imgPath = { image: data.image[0] };
     const res = await axiosPublic.post(imgHostingApi, imgPath, {
@@ -30,7 +29,6 @@ const AddItems = () => {
         recipe: data.recipe,
       };
       const menuRes = await axiosSecure.post("/menu", menuItem);
-      console.log(menuRes.data);
       if (menuRes.data.insertedId) {
         reset();
         Swal.fire({
@@ -40,10 +38,8 @@ const AddItems = () => {
           showConfirmButton: false,
           timer: 1500,
         });
-        console.log("done");
       }
     }
-    console.log(res.data.success);
   };
   return (
     <div>

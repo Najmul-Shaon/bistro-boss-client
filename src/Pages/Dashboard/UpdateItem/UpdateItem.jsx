@@ -16,11 +16,9 @@ const UpdateItem = () => {
   const { name, category, recipe, price, _id } = useLoaderData();
   //   const item = useLoaderData();
 
-  //   console.log(item);
 
   const { register, handleSubmit, reset } = useForm();
   const onSubmit = async (data) => {
-    console.log(data);
     //   upload to the img bb server then get a url
     const imgPath = { image: data.image[0] };
     const res = await axiosPublic.post(imgHostingApi, imgPath, {
@@ -37,7 +35,6 @@ const UpdateItem = () => {
         recipe: data.recipe,
       };
       const menuRes = await axiosSecure.patch(`/menu/${_id}`, menuItem);
-      console.log(menuRes.data);
       if (menuRes.data.modifiedCount > 0) {
         reset();
         Swal.fire({
@@ -47,10 +44,8 @@ const UpdateItem = () => {
           showConfirmButton: false,
           timer: 1500,
         });
-        console.log("done");
       }
     }
-    console.log(res.data.success);
   };
   return (
     <div>

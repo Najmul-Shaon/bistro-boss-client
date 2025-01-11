@@ -3,17 +3,18 @@ import { NavLink } from "react-router-dom";
 import { AuthContext } from "../../../Provider/AuthProvider";
 import useCart from "../../../Hooks/useCart";
 import { FaCartShopping } from "react-icons/fa6";
+import useAdmin from "../../../Hooks/useAdmin";
 
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
+  const [isadmin] = useAdmin();
 
   const [cart] = useCart();
 
   const handleLogout = () => {
     logOut()
       .then(() => {})
-      .catch((err) => {
-      });
+      .catch((err) => {});
   };
 
   const navOptions = (
@@ -27,9 +28,16 @@ const Navbar = () => {
       <li>
         <NavLink to="/order/salad">Order Now</NavLink>
       </li>
-      <li>
-        <NavLink to="/secret">Secret</NavLink>
-      </li>
+      {user && isadmin && (
+        <li>
+          <NavLink to="/dashboard/adminHome">Dashboard</NavLink>
+        </li>
+      )}
+      {user && !isadmin && (
+        <li>
+          <NavLink to="/dashboard/userHome">Dashboard</NavLink>
+        </li>
+      )}
       <li>
         <NavLink to="/dashboard/cart">
           <FaCartShopping></FaCartShopping>
