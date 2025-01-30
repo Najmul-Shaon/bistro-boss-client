@@ -17,6 +17,7 @@ const Testimonials = () => {
   const [reviews, setReviews] = useState([]);
 
   useEffect(() => {
+    // axios.get("https://y-rho-pied.vercel.app/reviews").then((res) => {
     axios.get("http://localhost:5000/reviews").then((res) => {
       setReviews(res.data);
     });

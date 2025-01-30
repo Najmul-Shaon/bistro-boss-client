@@ -4,6 +4,7 @@ import UseAuth from "./UseAuth";
 
 export const axiosSecure = axios.create({
   baseURL: "http://localhost:5000",
+  // baseURL: "https://y-rho-pied.vercel.app",
 });
 
 const useAxiosSecure = () => {
@@ -12,6 +13,7 @@ const useAxiosSecure = () => {
   axiosSecure.interceptors.request.use(
     function (config) {
       const token = localStorage.getItem("access-token");
+      // console.log("interceptors before adding token", token);
       config.headers.authorization = `Bearer ${token}`;
       return config;
     },

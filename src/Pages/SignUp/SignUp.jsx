@@ -30,7 +30,7 @@ const SignUp = () => {
           const userInfo = {
             name: data.name,
             email: data.email,
-            phoroUrl: data,
+            phoroUrl: data?.photoUrl,
           };
           axiosPublic.post("/users", userInfo).then((res) => {
             if (res.data.insertedId) {
@@ -45,9 +45,7 @@ const SignUp = () => {
             }
           });
         })
-        .catch((e) => {
-          
-        });
+        .catch((e) => {});
       reset();
     });
   };
